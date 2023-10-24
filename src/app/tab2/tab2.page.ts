@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../models/product.models';
 import { DataService } from '../data.service';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -16,6 +17,8 @@ export class Tab2Page {
   
   public precio:number = 0;
   //public total:number = 0;
+
+  private refreshSubject = new BehaviorSubject<boolean>(false);
   
   constructor(private dataService: DataService) {}
 
@@ -44,6 +47,7 @@ export class Tab2Page {
   }
 
   public deleteProducttoCart(producto:Product):void{
+    producto.quantity--;
     this.dataService.sharedProducts.splice(this.dataService.sharedProducts.indexOf(producto),1)
     if(this.countProducttoCart(producto)==0){
       this.dataService.uniqueProducts.delete(producto);
@@ -53,6 +57,13 @@ export class Tab2Page {
 
   public countProducttoCart(producto:Product):number{
     return this.dataService.sharedProducts.filter(p=> p===producto).length;
+  }
+
+  refreshPage() {
+    // Coloca aquí la lógica de actualización que necesitas
+
+    // Luego, puedes recargar la página actual utilizando el objeto location
+    location.reload();
   }
 
 }

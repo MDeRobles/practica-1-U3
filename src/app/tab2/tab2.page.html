@@ -9,22 +9,31 @@
 <ion-content [fullscreen]="true">
  
     <ion-card>
-      <ion-card-header>
-        <ion-card-title>Carrito de compras</ion-card-title>
-      </ion-card-header>
       <ion-card-content>
         <ion-list>  
           <ion-item lines="none" *ngFor="let car of getProductos(); index as i">
             <ion-thumbnail slot="start">
               <img [src]="car.photo+i"/>
             </ion-thumbnail>
-            <ion-label>{{ car.name }} ({{ car.quantity }}) {{ car.price | currency }}</ion-label>
-            <ion-button (click)="deleteProducttoCart(car)" color="danger"><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button>
+            <ion-label>{{ car.quantity }}            {{ car.name }} </ion-label>
+            <ion-label slot="end" color="tertiary">{{ car.price | currency }}</ion-label>
+            <ion-button (click)="deleteProducttoCart(car)" color="danger" slot="end"><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button>
+          </ion-item>
+          <ion-item>
+            <ion-label slot="end">Total del carrito:  {{getTotal() | currency}}</ion-label>  
           </ion-item>
         </ion-list>
-        <ion-card-subtitle>Total del carrito:  {{getTotal() | currency}} </ion-card-subtitle>
+       
+        
       </ion-card-content>
+      
     </ion-card>
+
+  
+        
+        
+
+
   
 
 
