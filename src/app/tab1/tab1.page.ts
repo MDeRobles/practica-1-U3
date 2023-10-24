@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Product } from '../models/product.models';
+import { DataService } from '../data.service';
+
+
+
 
 @Component({
   selector: 'app-tab1',
@@ -24,7 +28,7 @@ export class Tab1Page {
   total: number = 0; // Propiedad para almacenar el total
 
 
-  constructor() {
+  constructor(private dataService: DataService) {
     //Abarrotes
     this.products.push({
       id: 1,
@@ -167,6 +171,9 @@ export class Tab1Page {
 
   public setCar(product: Product): void {
     const existingProduct = this.productsCar.find((p) => p.id === product.id);
+    this.dataService.sharedProducts.push(product);
+    this.dataService.uniqueProducts.add(product);
+    this.dataService.total+=product.price;
   
     if (existingProduct) {
       // El producto ya existe en el carrito, aumenta la cantidad

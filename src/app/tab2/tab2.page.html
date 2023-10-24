@@ -1,17 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Carrito de compras
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+ 
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Carrito de compras</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>  
+          <ion-item lines="none" *ngFor="let car of getProductos(); index as i">
+            <ion-thumbnail slot="start">
+              <img [src]="car.photo+i"/>
+            </ion-thumbnail>
+            <ion-label>{{ car.name }} ({{ car.quantity }}) {{ car.price | currency }}</ion-label>
+            <ion-button (click)="deleteProducttoCart(car)" color="danger"><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button>
+          </ion-item>
+        </ion-list>
+        <ion-card-subtitle>Total del carrito:  {{getTotal() | currency}} </ion-card-subtitle>
+      </ion-card-content>
+    </ion-card>
+  
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+
+
+
 </ion-content>
