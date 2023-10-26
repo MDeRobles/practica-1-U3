@@ -1,0 +1,28 @@
+{
+  "hosting": {
+    "public": "www",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/tab1/**",
+        "destination": "/tab1/index.html"
+      },
+      {
+        "source": "/tab2/**",
+        "destination": "/tab2/index.html"
+      },
+      {
+        "source": "/tab3/**",
+        "destination": "/tab3/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

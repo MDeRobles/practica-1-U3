@@ -25,6 +25,9 @@ export class Tab1Page {
 
   public productsCar: Product[]=[];
 
+  public productsFav: Product[]=[];
+
+
   total: number = 0; // Propiedad para almacenar el total
 
 
@@ -184,6 +187,10 @@ export class Tab1Page {
       this.productsCar.push(product);
     }
     this.calculateTotal();
+  }
+
+  public setFav(product: Product): void {
+    this.dataService.FavProducts.push(product);
   }
   
 

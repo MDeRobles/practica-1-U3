@@ -6,7 +6,9 @@ import { Product } from './models/product.models';
 })
 export class DataService {
   public sharedProducts:Product[]=[];
+  public FavProducts:Product[]=[];
   public uniqueProducts:Set<Product> = new Set();
+  public uniqueProductsFav:Set<Product> = new Set();
   public total:number = 0;
 
 

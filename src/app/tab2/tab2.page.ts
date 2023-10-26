@@ -41,6 +41,10 @@ export class Tab2Page {
   public getProductos(){
     return this.dataService.uniqueProducts;
   }
+
+  public getFav(){
+    return this.dataService.FavProducts;
+  }
   
   public getTotal(){
     return this.dataService.total;
