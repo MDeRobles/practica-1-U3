@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../models/product.models';
 import { DataService } from '../data.service';
+import { ToastController } from '@ionic/angular';
 
 
 
@@ -31,7 +32,9 @@ export class Tab1Page {
   total: number = 0; // Propiedad para almacenar el total
 
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private toastController: ToastController) {
+
+    
     //Abarrotes
     this.products.push({
       id: 1,
@@ -159,6 +162,8 @@ export class Tab1Page {
 
     this.productsFounds=this.products;
 
+    
+
     this.calculateTotal();
 
   }
@@ -181,22 +186,40 @@ export class Tab1Page {
     if (existingProduct) {
       // El producto ya existe en el carrito, aumenta la cantidad
       existingProduct.quantity++;
+      this.mostrarMensaje("Producto agegado al carrito")
     } else {
       // El producto no está en el carrito, agrégalo con cantidad 1
       product.quantity = 1;
       this.productsCar.push(product);
+      this.mostrarMensaje("Producto agregado al carrito")
     }
     this.calculateTotal();
   }
 
   public setFav(product: Product): void {
     this.dataService.FavProducts.push(product);
+    this.mostrarMensaje("Producto agregado a favoritos")
   }
   
 
 
   calculateTotal() {
     return this.total = this.productsCar.reduce((acc, product) => acc + product.price * product.quantity, 0);
+  }
+
+  getProductsCarData(): Product[] {
+    return this.productsCar;
+  }
+
+
+  async mostrarMensaje(mensaje: string){
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000,
+      position: 'bottom',
+      
+    });
+    toast.present();
   }
 
 }

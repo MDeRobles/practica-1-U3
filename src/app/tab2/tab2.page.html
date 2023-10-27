@@ -20,21 +20,14 @@
             <ion-button (click)="deleteProducttoCart(car)" color="danger" slot="end"><ion-icon name="trash-outline"></ion-icon>Eliminar</ion-button>
           </ion-item>
           <ion-item>
-            <ion-label slot="end">Total del carrito:  {{getTotal() | currency}}</ion-label>  
-          </ion-item>
+            <ion-label slot="end">Total del carrito:{{getTotal()|currency}}</ion-label>  
+            <ion-button (click)="setCompras('2023-10-27', getTotal().toString())"color="danger" slot="end" *ngIf="getTotal()>0">
+            <ion-icon ></ion-icon>Realizar Compra</ion-button>      
+             
+          </ion-item>   
         </ion-list>
       </ion-card-content>
       
     </ion-card>
-
-  
-        
-        
-
-
-  
-
-
-
 
 </ion-content>

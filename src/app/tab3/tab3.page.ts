@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from '../models/product.models';
 import { DataService } from '../data.service';
 import { BehaviorSubject } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class Tab3Page {
 
   private refreshSubject = new BehaviorSubject<boolean>(false);
   
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService,private toastController: ToastController) {}
 
   public getColor(tipo:string):string{
     switch(tipo){
@@ -48,10 +49,12 @@ export class Tab3Page {
     if (existingProduct) {
       // El producto ya existe en el carrito, aumenta la cantidad
       existingProduct.quantity++;
+      this.mostrarMensaje("Producto agregado al carrito")
     } else {
       // El producto no está en el carrito, agrégalo con cantidad 1
       product.quantity = 1;
       this.productsCar.push(product);
+      this.mostrarMensaje("Producto agregado al carrito")
     }
     
   }
@@ -88,6 +91,16 @@ export class Tab3Page {
 
     // Luego, puedes recargar la página actual utilizando el objeto location
     location.reload();
+  }
+
+  async mostrarMensaje(mensaje: string){
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000,
+      position: 'bottom',
+      
+    });
+    toast.present();
   }
 
 }

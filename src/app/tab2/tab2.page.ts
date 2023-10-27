@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Product } from '../models/product.models';
 import { DataService } from '../data.service';
 import { BehaviorSubject } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -14,13 +15,14 @@ export class Tab2Page {
   public statusType = false;
   public products: Product[] = [];
   public productsFounds: Product[]=[];
+  public productsComprados: string[] = [];
   
   public precio:number = 0;
   //public total:number = 0;
 
   private refreshSubject = new BehaviorSubject<boolean>(false);
   
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService,private toastController: ToastController) {}
 
   public getColor(tipo:string):string{
     switch(tipo){
@@ -42,12 +44,18 @@ export class Tab2Page {
     return this.dataService.uniqueProducts;
   }
 
+
+
   public getFav(){
     return this.dataService.FavProducts;
   }
   
   public getTotal(){
     return this.dataService.total;
+  }
+
+  public getCompras(){
+    return this.productsComprados
   }
 
   public deleteProducttoCart(producto:Product):void{
@@ -63,11 +71,19 @@ export class Tab2Page {
     return this.dataService.sharedProducts.filter(p=> p===producto).length;
   }
 
-  refreshPage() {
-    // Coloca aquí la lógica de actualización que necesitas
+  public setCompras(fecha: string, total: string): void {
+    this.dataService.productsComprados.push(fecha, total);
+    this.mostrarMensaje("Compra realizada con exito"+this.dataService.productsComprados)
+  }
 
-    // Luego, puedes recargar la página actual utilizando el objeto location
-    location.reload();
+  async mostrarMensaje(mensaje: string){
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000,
+      position: 'bottom',
+      
+    });
+    toast.present();
   }
 
 }
