@@ -3,8 +3,8 @@
     "public": "www",
     "ignore": [
       "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
+      "*/.",
+      "*/node_modules/*"
     ],
     "rewrites": [
       {
@@ -18,6 +18,10 @@
       {
         "source": "/tab3/**",
         "destination": "/tab3/index.html"
+      },
+      {
+        "source": "/tab4/**",
+        "destination": "/tab4/index.html"
       },
       {
         "source": "**",
