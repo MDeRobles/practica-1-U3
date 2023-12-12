@@ -160,25 +160,7 @@ export class Tab4Page {
 
  
   public getProductos() {
-    const productos = this.dataService.productsComprados;
-
-    if (productos.length >= 2) {
-        let mensaje = "Fecha: " + productos[0] + "\nTotal: $" + productos[1];
-
-        if (productos.length > 2) {
-            for (let i = 2; i < productos.length; i++) {
-                if (i % 2 === 0) {
-                    mensaje += "\nFecha: " + productos[i];
-                } else {
-                    mensaje += "\nTotal: $" + productos[i];
-                }
-            }
-        }
-
-        return mensaje;
-    } else {
-        return "No hay datos disponibles";
-    }
+    return this.dataService.productsComprados
 }
 
 

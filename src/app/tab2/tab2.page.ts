@@ -3,6 +3,7 @@ import { Product } from '../models/product.models';
 import { DataService } from '../data.service';
 import { BehaviorSubject } from 'rxjs';
 import { ToastController } from '@ionic/angular';
+import { Compra } from '../models/compra.models';
 
 
 @Component({
@@ -71,10 +72,29 @@ export class Tab2Page {
     return this.dataService.sharedProducts.filter(p=> p===producto).length;
   }
 
-  public setCompras(fecha: string, total: string): void {
-    this.dataService.productsComprados.push(fecha, total);
-    this.mostrarMensaje("Compra realizada con exito"+this.dataService.productsComprados)
+  public setCompras(compra: Compra): void {
+    this.dataService.productsComprados.push(compra);
+    this.mostrarMensaje("Compra realizada con exito")
   }
+
+  agregarCompra() {
+    // Supongamos que tienes los datos de la compra disponibles
+    const nuevaCompra: Compra = {
+      id: this.dataService.productsComprados.length + 1, // Reemplaza con el ID adecuado
+      fecha: "2023-10-28", // Reemplaza con la fecha adecuada
+      total: this.dataService.total // Reemplaza con el total de la compra
+    };
+
+    this.setCompras(nuevaCompra);
+    this.mostrarMensaje("Compra realizada con éxito");
+    this.dataService.sharedProducts.splice(0,this.dataService.sharedProducts.length)
+    this.dataService.sharedProducts = [];
+    this.dataService.sharedProducts.length = 0;
+   // this.dataService.sharedProducts.splice(this.dataService.sharedProducts.indexOf(1)
+  
+  }
+
+  
 
   async mostrarMensaje(mensaje: string){
     const toast = await this.toastController.create({
